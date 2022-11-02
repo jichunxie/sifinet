@@ -1,0 +1,8 @@
+useDynLib(SiFINeT, .registration=TRUE)
+importFrom(Rcpp, evalCpp)
+import(Matrix)
+import(quantreg)
+import(igraph)
+import(ggraph)
+import(ggplot2)
+exportPattern("^[[:alpha:]]+")
