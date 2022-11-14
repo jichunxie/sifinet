@@ -9,7 +9,7 @@ Jichun Xie and Ruosha Li. "False discovery rate control for high dimensional
 networks of quantile associations conditioning on covariates". 
 In: J R Stat Soc Series B Stat Methodol (2018). doi: 10.1111/rssb.12288.}
 \usage{
-norm_FDR_SQAUC(value, sam_mean, sam_sd, alpha)
+norm_FDR_SQAUC(value, sam_mean, sam_sd, alpha, n, p)
 }
 \arguments{
 \item{value}{the vector of coexpression patterns}
@@ -19,6 +19,10 @@ norm_FDR_SQAUC(value, sam_mean, sam_sd, alpha)
 \item{sam_sd}{the estimated sample sd}
 
 \item{alpha}{the type I error rate}
+
+\item{n}{the number of cells}
+
+\item{p}{the number of genes}
 }
 \value{
 lower bound threshold for genes to be significantly coexpressed

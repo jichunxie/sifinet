@@ -8,10 +8,13 @@
 #' @param sam_mean the estimated sample mean
 #' @param sam_sd the estimated sample sd
 #' @param alpha the type I error rate
+#' @param n the number of cells
+#' @param p the number of genes
 #' @return lower bound threshold for genes to be significantly coexpressed
 #' @export
 
-norm_FDR_SQAUC <- function(value, sam_mean, sam_sd, alpha){
+norm_FDR_SQAUC <- function(value, sam_mean, sam_sd, alpha, n, p){
+  tp = 2*sqrt(log(max(n,p)))
   d <- length(value)
   value_a <- abs(value - sam_mean)
   value.ord <- order(value_a, decreasing=TRUE)
@@ -20,5 +23,11 @@ norm_FDR_SQAUC <- function(value, sam_mean, sam_sd, alpha){
   P22s <- 2*(1-pnorm(value_a_s, mean = 0, sd = sam_sd))
   FDR2h <- P22s*d/(1:d)
   R2 <- max(which(FDR2h<=alpha))
-  return(value_a_s[R2])
+  if (is.infinite(R2)){
+    return(tp)
+  } else if (value_a_s[R2] > tp){
+    return(tp)
+  } else {
+    return(value_a_s[R2])
+  }
 }

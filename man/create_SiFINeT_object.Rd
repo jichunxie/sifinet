@@ -9,11 +9,12 @@ create_SiFINeT_object(
   gene.name = NULL,
   meta.data = NULL,
   data.name = NULL,
-  sparse = FALSE
+  sparse = FALSE,
+  rowfeature = TRUE
 )
 }
 \arguments{
-\item{counts}{feature (row) by cell (column) count matrix}
+\item{counts}{count matrix}
 
 \item{gene.name}{name of the features}
 
@@ -22,6 +23,8 @@ create_SiFINeT_object(
 \item{data.name}{name of dataset}
 
 \item{sparse}{whether the count matrix should be analyzed as sparse matrix}
+
+\item{rowfeature}{whether the count matrix is feature (row) by cell (column)}
 }
 \value{
 a SiFINeT object

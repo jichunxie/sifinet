@@ -11,15 +11,19 @@ The SiFINeT Class
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{a list of gene (row) by cell (column) count matrix, either regular or sparse matrix}
+\item{\code{data}}{a list of cell (row) by gene (column) count matrix, either regular or sparse matrix}
 
 \item{\code{sparse}}{whether the count matrix should be analyzed as sparse matrix}
 
-\item{\code{meta.data}}{data.frame of meta data, the number of rows should equal to the number of cells}
+\item{\code{meta.data}}{matrix of meta data, the number of rows should equal to the number of cells}
 
 \item{\code{gene.name}}{a vector of names of genes with length equal to the number of genes}
 
 \item{\code{data.name}}{name of the dataset}
+
+\item{\code{n}}{number of cells in the dataset}
+
+\item{\code{p}}{number of genes in the dataset}
 
 \item{\code{data.thres}}{binarized count matrix}
 

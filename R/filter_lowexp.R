@@ -16,10 +16,12 @@ filter_lowexp <- function(so, t1 = 10, t2 = 0.9, t3 = 0.9){
   r_set <- c()
   for (target in 0:2){
     screen_set <- which(so@q5 == target)
-    abs_sum <- colSums(abs(so@coexp[, screen_set] - so@est_ms$mean) > so@thres)
-    pos_sum_w <- colSums(so@coexp[screen_set, screen_set] > (so@thres + so@est_ms$mean))
-    pos_sum <- colSums(so@coexp[, screen_set] > (so@thres + so@est_ms$mean))
-    r_set <- c(r_set, screen_set[which((abs_sum >= t1) & (pos_sum / abs_sum >= t2) & (pos_sum_w / pos_sum >= t3))])
+    if (length(screen_set) >= 2){
+      abs_sum <- colSums(abs(so@coexp[, screen_set] - so@est_ms$mean) > so@thres)
+      pos_sum_w <- colSums(so@coexp[screen_set, screen_set] > (so@thres + so@est_ms$mean))
+      pos_sum <- colSums(so@coexp[, screen_set] > (so@thres + so@est_ms$mean))
+      r_set <- c(r_set, screen_set[which((abs_sum >= t1) & (pos_sum / abs_sum >= t2) & (pos_sum_w / pos_sum >= t3))])
+    }
   }
   
   so@kset <- setdiff(1:length(so@q5), r_set)

@@ -14,16 +14,16 @@
 #' @export
 #' 
 quantile_thres <- function(so){
-  n <- ncol(so@data[[so@data.name]])
-  p <- nrow(so@data[[so@data.name]])
+  n <- so@n
+  p <- so@p
   Z <- so@meta.data
   if (ncol(Z) == 0){
-    Z <- colMeans(so@data[[so@data.name]])
+    Z <- rowMeans(so@data[[so@data.name]])
   }
   if (so@sparse == FALSE){
     dt <- matrix(0, n, p)
     for (j in 1:p){
-      temp <- so@data[[so@data.name]][j,]
+      temp <- so@data[[so@data.name]][,j]
       v5 <- quantile(temp, 0.5)
       if ((v5 == 0) | (v5 >= quantile(temp, 0.99))){
         dt[,j] <- (temp > 0)*1
@@ -35,11 +35,10 @@ quantile_thres <- function(so){
       }
     } 
   } else {
-    so@data[[so@data.name]] <- as(so@data[[so@data.name]], "dMatrix")
+    so@data[[so@data.name]] <- as(so@data[[so@data.name]], "dgCMatrix")
     out <- list()
     for (j in 1:p){
-      #print(j)
-      temp <- as.vector(so@data[[so@data.name]][j,])
+      temp <- as.vector(so@data[[so@data.name]][,j])
       v5 <- quantile(temp, 0.5)
       if ((v5 == 0) | (v5 >= quantile(temp, 0.99))){
         out[[j]] <- which(temp > 0) - 1
@@ -50,11 +49,12 @@ quantile_thres <- function(so){
         out[[j]] <- which(temp > Q) - 1
       }
     }
-    dt  <- Matrix(0, n, p, sparse = TRUE)
-    dt@i <- as.integer(unlist(out))
     temp <- sapply(out, length)
-    dt@p <- as.integer(c(0, cumsum(temp)))
-    dt@x <- rep(1, length(dt@i))
+    dt <- new("dgCMatrix", 
+              i = as.integer(unlist(out)), 
+              p = as.integer(c(0, cumsum(temp))),
+              x = rep(1, length(as.integer(unlist(out)))), 
+              Dim = c(n, p))
   }
   so@data.thres <- list(dt)
   names(so@data.thres) <- so@data.name

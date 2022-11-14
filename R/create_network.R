@@ -20,7 +20,7 @@
 create_network <- function(so, alpha = 0.05, manual = FALSE, least_edge_prop = 0.01){
   coex_vec <- so@coexp[upper.tri(so@coexp, diag = FALSE)]
   so@est_ms <- EstNull(coex_vec)
-  so@thres <- norm_FDR_SQAUC(coex_vec, so@est_ms$mean, so@est_ms$std, alpha)
+  so@thres <- norm_FDR_SQAUC(coex_vec, so@est_ms$mean, so@est_ms$std, alpha, so@n, so@p)
   if (manual){
     so@thres <- min(so@thres, quantile(abs(coex_vec - so@est_ms$mean), (1 - least_edge_prop)))
   }
