@@ -1,0 +1,118 @@
+---
+title: "Introduction to SifiNet"
+author:
+  - "Qi Gao"
+package: splatter
+date: "Last updated: March 11, 2023"
+output: html_document
+vignette: >
+  %\VignetteIndexEntry{An introduction to the SifiNet package}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+SifiNet (Single-cell feature identification with Network topology) is an R package of a clustering-independent method for directly identifying feature gene sets. Feature gene set are sets of gene exhibiting unique phenotypes in different cell subpopulations. SifiNet is designed for single cell RNA-seq data, finding sets of feature genes that are differentially expressed in some cell subpopulation. However, it can also find epigenomic feature gene sets when applied to single cell ATAC-seq data. This vignette gives an introduction to SifiNet package.
+
+# Installation
+
+SifiNet can be installed from Github:
+
+```{r install-github, eval = FALSE}
+devtools::install_github("jichunxie/sifinet")
+```
+
+# SifiNet method
+
+SifiNet method consists of two major sections, A and B. After loading the data, in section A we construct a gene co-expression network with genes as nodes and the co-expressions between genes as edges. And in section B, we identify the feature gene sets based on the gene co-expression network.
+
+## Create SifiNet object
+
+Suppose we already have a matrix of count data that we wish to find feature gene sets from. 
+Here is a toy example generated with the `complexSCsimulation` package:
+
+```{r load_data}
+# Load package
+library(SiFINeT)
+
+# Load data
+data <- readRDS("toy_matrix.rds")
+sifi_obj <- create_SiFINeT_object(counts = data,
+                                  gene.name = NULL,
+                                  meta.data = NULL,
+                                  data.name = NULL,
+                                  sparse = FALSE,
+                                  rowfeature = TRUE)
+```
+
+The `count` matrix should be a gene (row) by cell (column) matrix by default. Otherwise, for a cell (row) by gene (column) matrix, the `rowfeature` argument need to be set to `FALSE`. Name of the genes could be specified by the `gene.name` argument. Meta data of the cells could be input using the `meta.data` argument. If the input count matrix is sparse (majority of the matrix is 0), we can set the `sparse` argument to be `TRUE`, which would potentially reduce the space and time cost of the method. We can also assign a name to the input data set by `data.name` argument. Multiple count matrix could be saved in a SifiNet object. The name of data set could help to distinguish those inputs.
+
+## Section A: Construct the gene co-expression network
+
+```{r network1}
+# estimate the quantiles
+sifi_obj <- quantile_thres(sifi_obj)
+sifi_obj <- feature_coexp(sifi_obj)
+```
+
+In SifiNet, we use quantile association to measure the co-expression between genes. So, to construct the gene co-expression network, we first divide the read counts in the matrix into "low" and "high" groups using quantile regression in `quantile_thres` function. If `sifi_obj@meta.data` has at least one column, then the columns of `sifi_obj@meta.data` are used as independent variables. Otherwise, the mean total number of reads in each cell is used as independent variable for the quantile regression. The results are saved in `sifi_obj@data.thres`. Based on the results of the "low" and "high" group classification, we calculate the co-expression score using `feature_coexp` function. The results are saved in `sifi_obj@coexp`.
+
+```{r network2}
+# build the co-expression network
+sifi_obj <- create_network(sifi_obj, 
+                           alpha = 0.05, manual = FALSE, 
+                           least_edge_prop = 0.01)
+```
+
+Then we select a threshold for co-expression score. Gene pairs with absolute value of co-expression score greater than the threshold would be considered to have an edge between them in the network. This procedure is done by function `create_network`. By default, an FDR control procedure is applied to select the threshold. Argument `alpha` is the type I error of the FDR control procedure. After finding the threshold using the FDR control procedure, SifiNet also allows an additional modification of the threshold. In case that the threshold is overly strict, we can set a lower bound for the proportion of edges (total number of edges divided by the total number of different gene pairs) with argument `least_edge_prop`. Note the `least_edge_prop` is only used when argument `manual` is `TRUE`. The results are saved in `sifi_obj@est_ms` and `sifi_obj@thres`.
+
+```{r network3}
+# filter gene to improve the quality of the co-expression network
+sifi_obj <- filter_lowexp(sifi_obj, t1 = 10, t2 = 0.9, t3 = 0.9)
+```
+
+After building the co-expression network, we further perform additional gene filtering steps to improve the quality of the co-
+expression network. Greater values of arguments `t1`, `t2`, and `t3` would lead to a less strict filtering, keeping more genes in the network. The results are saved in `sifi_obj@kset`.
+
+## Section B: Construct the gene co-expression network
+
+```{r feature1}
+# calculate connectivity for each gene
+sifi_obj <- cal_connectivity(sifi_obj, m = 10, niter = 100)
+```
+
+In section B, based on the topology structure of gene co-expression network, we identify the feature gene sets. Using function `cal_connectivity`, we calculate the 1st, 2nd, and 3rd order connectivities for each gene. The connectivities are measures of the topology structure of gene co-expression network. Greater values of argument `m` and `niter` would improve the accuracy of 3rd order connectivity, but would also increase the computation time. The results are saved in `sifi_obj@conn`.
+
+```{r feature2}
+# detect core feature gene sets
+sifi_obj <- find_unique_feature(sifi_obj,
+                                t1 = 5,
+                                t2 = 0.4,
+                                t3 = 0.3,
+                                t1p = 5,
+                                t2p = 0.7,
+                                t3p = 0.5,
+                                resolution = 1,
+                                min_set_size = 5)
+```
+
+After calculating the connectivities, we can detect candidate feature genes. And then we identify the core feature genes in each of the feature gene sets among the candidate feature genes. Core feature genes are genes that show unique phenotypes in only one cell subpopulation (not shared with other cell subpopulation). These steps are done by function `find_unique_feature`. Arguments `t1`, `t2`, `t3`, `t1p`, `t2p`, `t3p` are thresholds for 1st, 2nd, and 3rd order connectivities. Greater input values of those arguments would lead to less number of feature gene sets and feature genes. `resolution` argument is used for `cluster_louvain` function in `igraph` package. We require a feature gene set to have at least `min_set_size` core feature genes to be detected. The results are saved in `sifi_obj@conn2`, `sifi_obj@fg_id`, `sifi_obj@uni_fg_id`, `sifi_obj@uni_cluster`, `sifi_obj@selected_cluster` and `sifi_obj@featureset`.
+
+```{r feature3}
+# assign shared feature genes to core feature gene sets
+sifi_obj <- assign_shared_feature(sifi_obj, min_edge_prop = 0.5)
+```
+
+Then we assign other candidate feature genes (that are not identified as core feature gene) into core feature gene sets. Those genes are allowed to be shared by more than 1 core feature gene sets. The assignment of shared feature gene is based on the proportion of edge between a core feature gene set and the feature gene (number of edges between the feature gene and genes in the core feature gene set divided by number of genes in the core feature gene set). An assignment with greater value of argument `min_edge_prop` would have less shared feature gene added. The results are saved in `sifi_obj@featureset`.
+
+```{r feature4}
+# enrich feature gene sets with other genes
+sifi_obj <- enrich_feature_set(sifi_obj, min_edge_prop = 0.9)
+```
+
+In the last step, we enrich the feature gene sets (with both core and shared feature gene) with other genes that are not identified previously as feature gene. Those genes are also allowed to be shared by more than 1 core feature gene sets. Similarly, the assignment of enriched feature gene is based on the proportion of edge between a feature gene set and the gene (number of edges between the gene and genes in the feature gene set divided by number of genes in the feature gene set). An assignment with greater value of argument `min_edge_prop` would have less shared feature gene added. The results are saved in `sifi_obj@featureset`.
+
+# Session information
+
+```{r sessionInfo}
+sessionInfo()
+```
