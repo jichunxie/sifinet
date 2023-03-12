@@ -14,7 +14,7 @@
 #' @export
 
 norm_FDR_SQAUC <- function(value, sam_mean, sam_sd, alpha, n, p){
-  tp = 2*sqrt(log(max(n,p)))
+  tp = 2*sqrt(log(max(n,p)))*sam_sd
   d <- length(value)
   value_a <- abs(value - sam_mean)
   value.ord <- order(value_a, decreasing=TRUE)
