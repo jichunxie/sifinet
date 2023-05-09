@@ -11,7 +11,8 @@ geneset_topology(
   node_color = "black",
   shiftsize = 0.05,
   boundsize = 0.3,
-  prefix = ""
+  prefix = "",
+  set_name = NULL
 )
 }
 \arguments{
@@ -30,6 +31,8 @@ while the edge proportion between feature gene sets would be applied if edge_met
 \item{boundsize}{set the size of the boundary region.}
 
 \item{prefix}{the prefix of the labels}
+
+\item{set_name}{name of the gene sets}
 }
 \value{
 A ggraph (ggplot) object

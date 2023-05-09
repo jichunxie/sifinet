@@ -10,6 +10,7 @@
 #' @param shiftsize set the distance between center of label and the corresponding feature gene sets node. 
 #' @param boundsize set the size of the boundary region. 
 #' @param prefix the prefix of the labels
+#' @param set_name name of the gene sets
 #' @return A ggraph (ggplot) object
 #' @details This function visualizes the output feature gene sets of SiFINeT in the form of network.
 #' Number of shared feature genes or proportion of edges between feature gene sets could be used to weight the edges.
@@ -23,7 +24,7 @@
 #' @export
 #' 
 geneset_topology <- function(so, weightthres = 0.3, edge_method = 2, node_color = "black",
-                             shiftsize = 0.05, boundsize = 0.3, prefix = ""){
+                             shiftsize = 0.05, boundsize = 0.3, prefix = "", set_name = NULL){
   if ((edge_method == 1) & (weightthres < 1)){
     weightthres <- 5
   }
@@ -35,7 +36,11 @@ geneset_topology <- function(so, weightthres = 0.3, edge_method = 2, node_color 
   }
   
   nodes <- data.frame(1:length(id_list), sapply(id_list, length))
-  nodes[,1] <- paste(prefix, nodes[,1], sep = "")
+  if (is.null(set_name)){
+    nodes[,1] <- paste(prefix, nodes[,1], sep = "")
+  } else{
+    nodes[,1] <- set_name
+  }
   edge <- data.frame(t(combn(1:length(id_list), 2)))
   if (edge_method == 1){
     edge$edge_weight <- apply(edge, 1, function(x){length(intersect(id_list[[x[1]]], id_list[[x[2]]]))})
@@ -43,8 +48,13 @@ geneset_topology <- function(so, weightthres = 0.3, edge_method = 2, node_color 
     edge_mat <- 1 * (abs(so@coexp - so@est_ms$mean) >= so@thres)
     edge$edge_weight <- apply(edge, 1, function(x){mean(edge_mat[id_list[[x[1]]], id_list[[x[2]]]])})
   }
-  edge[,1] <- paste(prefix, edge[,1], sep = "")
-  edge[,2] <- paste(prefix, edge[,2], sep = "")
+  if (is.null(set_name)){
+    edge[,1] <- paste(prefix, edge[,1], sep = "")
+    edge[,2] <- paste(prefix, edge[,2], sep = "")
+  } else{
+    edge[,1] <- set_name[edge[,1]]
+    edge[,2] <- set_name[edge[,2]]
+  }
   edge <- edge[edge$edge_weight > weightthres, ]
   me <- max(edge$edge_weight)
   edge$scaled_edge_weight <- edge$edge_weight / me
