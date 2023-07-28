@@ -4,16 +4,9 @@
 \alias{geneset_topology}
 \title{geneset_topology}
 \usage{
-geneset_topology(
-  so,
-  weightthres = 0.3,
-  edge_method = 2,
-  node_color = "black",
-  shiftsize = 0.05,
-  boundsize = 0.3,
-  prefix = "",
-  set_name = NULL
-)
+geneset_topology(so, weightthres = 0.3, edge_method = 2,
+  node_color = "black", shiftsize = 0.05, boundsize = 0.3, prefix = "",
+  set_name = NULL)
 }
 \arguments{
 \item{so}{a SiFINeT object}

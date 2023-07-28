@@ -1,5 +1,5 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppArmadillo)]]
 
 //' EstNull
 //' This function is a Rcpp version of Wenguang Sun and Tony T. Cai's 
@@ -13,8 +13,8 @@ using namespace Rcpp;
 //' @export
 // [[Rcpp::export]]
 
-List EstNull(NumericVector x, double gamma = 0.1) {
-  int n = x.length();
+Rcpp::List EstNull(arma::vec x, double gamma = 0.1) {
+  int n = x.n_elem;
   double gan = std::pow(n, -gamma);
   
   double s;
@@ -32,15 +32,15 @@ List EstNull(NumericVector x, double gamma = 0.1) {
     phiminus = mean(sin(s * x));
     phi = std::sqrt(std::pow(phiplus, 2) + std::pow(phiminus, 2));
     if (phi <= gan){
-      dphiplus = -mean(x*sin(s*x));
-      dphiminus = mean(x*cos(s*x));
+      dphiplus = - arma::as_scalar(x.t() * sin(s*x)) / n;
+      dphiminus = arma::as_scalar(x.t() * cos(s*x)) / n;
       shat = std::sqrt(-(phiplus * dphiplus + phiminus * dphiminus) / (s * phi * phi));
       uhat = -(dphiplus * phiminus - dphiminus * phiplus) / (phi * phi);
       break;
     }
   }
   
-  return List::create(Rcpp::Named("mean") = uhat,
-                      Rcpp::Named("std") = shat);
+  return Rcpp::List::create(Rcpp::Named("mean") = uhat,
+                            Rcpp::Named("std") = shat);
 }
 

@@ -4,17 +4,8 @@
 \alias{find_unique_feature}
 \title{find_unique_feature}
 \usage{
-find_unique_feature(
-  so,
-  t1 = 5,
-  t2 = 0.4,
-  t3 = 0.3,
-  t1p = 5,
-  t2p = 0.7,
-  t3p = 0.5,
-  resolution = 1,
-  min_set_size = 5
-)
+find_unique_feature(so, t1 = 5, t2 = 0.4, t3 = 0.3, t1p = 5,
+  t2p = 0.7, t3p = 0.5, resolution = 1, min_set_size = 5)
 }
 \arguments{
 \item{so}{a SiFINeT object}

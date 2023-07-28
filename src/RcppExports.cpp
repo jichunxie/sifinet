@@ -12,12 +12,12 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // EstNull
-List EstNull(NumericVector x, double gamma);
+Rcpp::List EstNull(arma::vec x, double gamma);
 RcppExport SEXP _SiFINeT_EstNull(SEXP xSEXP, SEXP gammaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
     Rcpp::traits::input_parameter< double >::type gamma(gammaSEXP);
     rcpp_result_gen = Rcpp::wrap(EstNull(x, gamma));
     return rcpp_result_gen;
