@@ -3,8 +3,8 @@ Type: Package
 Title: Single Cell Feature Identification with Network Topology
 Version: 1.13
 Date: 2024-07-08
-Author: Kouros Owzar
-Maintainer: Kouros Owzar <kouros.owzar@duke.edu>
+Author: Qi Gao
+Maintainer: Qi Gao <qi.gao@duke.edu>
 Description: A cluster-independent feature gene sets detection method based on topology structure of gene coexpression network. 
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
