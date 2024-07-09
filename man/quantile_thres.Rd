@@ -17,8 +17,8 @@ The function classifies count data into binary low (0) - high (1) data, based on
 }
 \details{
 The threshold used for classification is defined by quantile regression on each gene using Frisch–Newton interior point method ("fn" option for method variable in quantreg package, rq function).
-By default if no meta data is provided, the quantile regression would be applied on the mean expression level of each cell. 
-The quantile to be estimated in the quantile regression is set to be the estimated 50% quantile of the non-zero part of the expression level for each gene.
+By default if no meta data is provided, the quantile regression would be applied on the mean expression level of each cell.
+The quantile to be estimated in the quantile regression is set to be the estimated 50\% quantile of the non-zero part of the expression level for each gene.
 If the expression level of a gene is low (with median 0), then the threshold is set to be 0.
 }
 \references{

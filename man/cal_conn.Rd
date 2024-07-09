@@ -11,16 +11,19 @@ cal_conn(data, thres = 3, m = 10L, abso = 1L, niter = 100L)
 \arguments{
 \item{data}{Input gene by gene coexpression matrix}
 
-\item{thres}{Gene pairs with coexpression exceed thres would be assigned an edge between them in the coexpression network}
+\item{thres}{Gene pairs with coexpression exceed thres would be assigned an
+edge between them in the coexpression network}
 
 \item{m}{Sample size used for the calculation of 3rd order connectivities}
 
-\item{abso}{Whether to calculate connectivities in absolute network (TRUE) or positive network (FALSE)}
+\item{abso}{Whether to calculate connectivities in absolute network (TRUE)
+or positive network (FALSE)}
 
-\item{niter}{Number of sample used for the calculation of 3rd order connectivities}
+\item{niter}{Number of sample used for the calculation of 3rd order
+connectivities}
 }
 \value{
-List of connectivities C1, C2, and C3
+List of connectivities C1, C2, and C3 ' @export
 }
 \description{
 cal_conn

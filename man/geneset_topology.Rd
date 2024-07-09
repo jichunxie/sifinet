@@ -4,17 +4,24 @@
 \alias{geneset_topology}
 \title{geneset_topology}
 \usage{
-geneset_topology(so, weightthres = 0.3, edge_method = 2,
-  node_color = "black", shiftsize = 0.05, boundsize = 0.3, prefix = "",
-  set_name = NULL)
+geneset_topology(
+  so,
+  weightthres = 0.3,
+  edge_method = 2,
+  node_color = "black",
+  shiftsize = 0.05,
+  boundsize = 0.3,
+  prefix = "",
+  set_name = NULL
+)
 }
 \arguments{
 \item{so}{a SiFINeT object}
 
 \item{weightthres}{edges between nodes (feature gene sets) with weight greater than weightthres would be shown in the plot}
 
-\item{edge_method}{SiFINeT provides 2 methods of calculating edge weight. 
-The number of shared feature genes between feature gene sets would be used when edge_method = 1; 
+\item{edge_method}{SiFINeT provides 2 methods of calculating edge weight.
+The number of shared feature genes between feature gene sets would be used when edge_method = 1;
 while the edge proportion between feature gene sets would be applied if edge_method = 2.}
 
 \item{node_color}{color of nodes. Should have either length 1 or same length as the number of feature gene sets.}
@@ -39,7 +46,7 @@ Number of shared feature genes or proportion of edges between feature gene sets 
 The layout of the nodes is created by create_layout function in ggraph package.
 }
 \references{
-Thomas Lin Pedersen (2022). ggraph: An Implementation of 
-Grammar of Graphics for Graphs and Networks. R package 
+Thomas Lin Pedersen (2022). ggraph: An Implementation of
+Grammar of Graphics for Graphs and Networks. R package
 version 2.0.6. https://CRAN.R-project.org/package=ggraph
 }

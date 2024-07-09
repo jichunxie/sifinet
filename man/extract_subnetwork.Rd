@@ -4,8 +4,12 @@
 \alias{extract_subnetwork}
 \title{extract_subnetwork}
 \usage{
-extract_subnetwork(so, target_gene_name = NULL, target_gene_id = NULL,
-  positive = TRUE)
+extract_subnetwork(
+  so,
+  target_gene_name = NULL,
+  target_gene_id = NULL,
+  positive = TRUE
+)
 }
 \arguments{
 \item{so}{a SiFINeT object}

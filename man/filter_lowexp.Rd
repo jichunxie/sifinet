@@ -19,11 +19,11 @@ filter_lowexp(so, t1 = 10, t2 = 0.9, t3 = 0.9)
 SiFINeT object with kset (kept index set) updated.
 }
 \description{
-The function filters out genes with low expression rate and 
+The function filters out genes with low expression rate and
 high positive coexpression with genes of same expression level
 }
 \details{
-When using only mean expression level as independent variable in quantile regression, 
-it is observed that genes with low expression level tend to have large positive $S_{ij}$ with genes that have same median expression level.
+When using only mean expression level as independent variable in quantile regression,
+it is observed that genes with low expression level tend to have large positive \eqn{S_{ij}} with genes that have same median expression level.
 To reduce the coexpression noise caused by low expression level, it is preferred to filter out genes which have large amount and high proportion of positive coexpressions with genes sharing same median expression level.
 }

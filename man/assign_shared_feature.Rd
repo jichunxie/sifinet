@@ -18,6 +18,6 @@ SiFINeT object with shared feature genes in featureset updated.
 The function assigns non-unique candidate feature genes as shared feature genes into unique feature gene sets
 }
 \details{
-Candidate feature genes that are not chosen as unique feature genes would be reconsidered as shared feature genes. 
+Candidate feature genes that are not chosen as unique feature genes would be reconsidered as shared feature genes.
 A non-unique candidate feature gene would be assigned to a unique feature gene group if it is connected to more than min_edge_prop of the unique genes in the group.
 }

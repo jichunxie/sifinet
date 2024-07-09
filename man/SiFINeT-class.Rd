@@ -33,7 +33,7 @@ The SiFINeT Class
 
 \item{\code{thres}}{lower bound of coexpression (or absolute value of coexpression) for network edge assignment}
 
-\item{\code{q5}}{50% quantile for each gene}
+\item{\code{q5}}{50\% quantile for each gene}
 
 \item{\code{kset}}{index of kept genes after the filtering step}
 

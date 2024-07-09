@@ -5,8 +5,8 @@
 \title{norm_FDR_SQAUC
 The function controls the false discovery rate (FDR) of coexpression patterns
 using SQAUC method
-Jichun Xie and Ruosha Li. "False discovery rate control for high dimensional 
-networks of quantile associations conditioning on covariates". 
+Jichun Xie and Ruosha Li. "False discovery rate control for high dimensional
+networks of quantile associations conditioning on covariates".
 In: J R Stat Soc Series B Stat Methodol (2018). doi: 10.1111/rssb.12288.}
 \usage{
 norm_FDR_SQAUC(value, sam_mean, sam_sd, alpha, n, p)
@@ -31,7 +31,7 @@ lower bound threshold for genes to be significantly coexpressed
 norm_FDR_SQAUC
 The function controls the false discovery rate (FDR) of coexpression patterns
 using SQAUC method
-Jichun Xie and Ruosha Li. "False discovery rate control for high dimensional 
-networks of quantile associations conditioning on covariates". 
+Jichun Xie and Ruosha Li. "False discovery rate control for high dimensional
+networks of quantile associations conditioning on covariates".
 In: J R Stat Soc Series B Stat Methodol (2018). doi: 10.1111/rssb.12288.
 }

@@ -3,10 +3,12 @@
 \name{EstNull}
 \alias{EstNull}
 \title{EstNull
-This function is a Rcpp version of Wenguang Sun and Tony T. Cai's 
+This function is a Rcpp version of Wenguang Sun and Tony T. Cai's
 EstNull.func R function, estimating null distribution from data.
-Wenguang Sun and Tony T. Cai. "Oracle and adaptive compound decision rules for false discovery rate control". 
-In: Journal of the American Statistical Association 102 (479 2007), pp. 901–912. doi: 10.1198/016214507000000545.}
+Sun, W., & Cai, T. T. (2007). Oracle and Adaptive Compound Decision
+Rules for False Discovery Rate Control.
+Journal of the American Statistical Association,
+102(479), 901–912.}
 \usage{
 EstNull(x, gamma = 0.1)
 }
@@ -20,10 +22,12 @@ List of mean and std
 }
 \description{
 EstNull
-This function is a Rcpp version of Wenguang Sun and Tony T. Cai's 
+This function is a Rcpp version of Wenguang Sun and Tony T. Cai's
 EstNull.func R function, estimating null distribution from data.
-Wenguang Sun and Tony T. Cai. "Oracle and adaptive compound decision rules for false discovery rate control". 
-In: Journal of the American Statistical Association 102 (479 2007), pp. 901–912. doi: 10.1198/016214507000000545.
+Sun, W., & Cai, T. T. (2007). Oracle and Adaptive Compound Decision
+Rules for False Discovery Rate Control.
+Journal of the American Statistical Association,
+102(479), 901–912.
 }
 \author{
 Qi Gao

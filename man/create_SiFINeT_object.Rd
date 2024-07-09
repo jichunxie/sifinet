@@ -4,8 +4,14 @@
 \alias{create_SiFINeT_object}
 \title{create_SiFINeT_object}
 \usage{
-create_SiFINeT_object(counts, gene.name = NULL, meta.data = NULL,
-  data.name = NULL, sparse = FALSE, rowfeature = TRUE)
+create_SiFINeT_object(
+  counts,
+  gene.name = NULL,
+  meta.data = NULL,
+  data.name = NULL,
+  sparse = FALSE,
+  rowfeature = TRUE
+)
 }
 \arguments{
 \item{counts}{count matrix}
@@ -24,6 +30,6 @@ create_SiFINeT_object(counts, gene.name = NULL, meta.data = NULL,
 a SiFINeT object
 }
 \description{
-The function classifies count data based on thresholds 
+The function classifies count data based on thresholds
 defined by quantile regression
 }

@@ -4,8 +4,17 @@
 \alias{find_unique_feature}
 \title{find_unique_feature}
 \usage{
-find_unique_feature(so, t1 = 5, t2 = 0.4, t3 = 0.3, t1p = 5,
-  t2p = 0.7, t3p = 0.5, resolution = 1, min_set_size = 5)
+find_unique_feature(
+  so,
+  t1 = 5,
+  t2 = 0.4,
+  t3 = 0.3,
+  t1p = 5,
+  t2p = 0.7,
+  t3p = 0.5,
+  resolution = 1,
+  min_set_size = 5
+)
 }
 \arguments{
 \item{so}{a SiFINeT object}
@@ -27,7 +36,7 @@ find_unique_feature(so, t1 = 5, t2 = 0.4, t3 = 0.3, t1p = 5,
 \item{min_set_size}{minimum size for a unique feature gene cluster to be a separate unique feature gene set}
 }
 \value{
-SiFINeT object with fg_id (candidate feature gene index), uni_fg_id (candidate unique feature gene index), conn2 (connectivities in positive sub-network), 
+SiFINeT object with fg_id (candidate feature gene index), uni_fg_id (candidate unique feature gene index), conn2 (connectivities in positive sub-network),
 uni_cluster (cluster of candidate unique feature genes), selected_cluster (selected unique feature gene clusters), and unique feature genes in featureset updated.
 }
 \description{
@@ -38,6 +47,6 @@ SiFINeT first find genes with high 1st (>= t1), 2nd (>= t2) and 3rd (>= t3) orde
 Then a positive sub-network is created where only candidate feature gene nodes (fg_id) and edges with positive coexpression patterns (coexp >= thres) are included.
 Feature genes genes with high 1st (>= t1p), 2nd (>= t2p) and at least moderate 3rd (>= t3p) order connectivities in positive sub-network (conn2) are chosen to be candidate unique feature genes.
 Note that when the network is not too sparse, t3p should usually be smaller than t2p for the detection of unique feature genes in transition cell types.
-The candidate unique feature genes are then separated into groups by louvain clustering (with resolution defined by the resolution parameter), 
+The candidate unique feature genes are then separated into groups by louvain clustering (with resolution defined by the resolution parameter),
 and among them large groups (number of genes greater than min_set_size) are chosen to be unique feature gene sets that represent different cell types.
 }

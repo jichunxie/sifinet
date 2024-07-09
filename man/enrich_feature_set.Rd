@@ -18,6 +18,6 @@ SiFINeT object with enriched feature genes in geneset updated.
 The function chooses genes that are not found to be feature genes as enriched feature genes and assigns them into unique+shared feature gene sets
 }
 \details{
-Genes that are not selected as feature genes would be added in the enriched section of the feature gene set if they are connected with 
+Genes that are not selected as feature genes would be added in the enriched section of the feature gene set if they are connected with
 more than min_edge_prop of the unique and shared feature genes in each of the feature gene group.
 }
