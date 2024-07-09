@@ -2,13 +2,15 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #' EstNull
-#' This function is a Rcpp version of Wenguang Sun and Tony T. Cai's 
+#' This function is a Rcpp version of Wenguang Sun and Tony T. Cai's
 #' EstNull.func R function, estimating null distribution from data.
-#' Wenguang Sun and Tony T. Cai. "Oracle and adaptive compound decision rules for false discovery rate control". 
-#' In: Journal of the American Statistical Association 102 (479 2007), pp. 901–912. doi: 10.1198/016214507000000545.
+#' Sun, W., & Cai, T. T. (2007). Oracle and Adaptive Compound Decision
+#' Rules for False Discovery Rate Control.
+#' Journal of the American Statistical Association,
+#' 102(479), 901–912.
 #' @author Qi Gao
-#' @param x Input vector of all coexpression values 
-#' @param gamma Parameter setting the stopping threshold 
+#' @param x Input vector of all coexpression values
+#' @param gamma Parameter setting the stopping threshold
 #' @return List of mean and std
 #' @export
 EstNull <- function(x, gamma = 0.1) {
@@ -41,13 +43,15 @@ cal_coexp_sp <- function(X) {
 #' This function calculates the first 3 order connectivities for each gene
 #' and returns the list of vectors of connectivities.
 #' @author Qi Gao
-#' @param data Input gene by gene coexpression matrix 
-#' @param thres Gene pairs with coexpression exceed thres would be assigned an edge between them in the coexpression network
+#' @param data Input gene by gene coexpression matrix
+#' @param thres Gene pairs with coexpression exceed thres would be assigned an
+#'        edge between them in the coexpression network
 #' @param m Sample size used for the calculation of 3rd order connectivities
-#' @param abso Whether to calculate connectivities in absolute network (TRUE) or positive network (FALSE)
-#' @param niter Number of sample used for the calculation of 3rd order connectivities
-#' @return List of connectivities C1, C2, and C3
-#' @export
+#' @param abso Whether to calculate connectivities in absolute network (TRUE)
+#'        or positive network (FALSE)
+#' @param niter Number of sample used for the calculation of 3rd order
+#'        connectivities
+#' @return List of connectivities C1, C2, and C3 ' @export
 cal_conn <- function(data, thres = 3, m = 10L, abso = 1L, niter = 100L) {
     .Call(`_SiFINeT_cal_conn`, data, thres, m, abso, niter)
 }
