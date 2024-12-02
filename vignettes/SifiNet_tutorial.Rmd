@@ -134,7 +134,7 @@ expression network. Greater values of arguments `t1`, `t2`, and `t3`
 would lead to a less strict filtering, keeping more genes in the
 network. The results are saved in `sifi_obj@kset`.
 
-## Section B: Construct the gene co-expression network
+## Section B: Calculate gene connectivity and find feature gene sets
 
 ```{r feature1}
 # calculate connectivity for each gene

@@ -1,6 +1,6 @@
 # R package repository
 
-This repository contains the codes and a tutorial for the R package "SiFINeT" v1.11.
+This repository contains the codes and a tutorial for the R package "SiFINeT" v1.13.
 
 The corresponding paper is "SifiNet: A robust and accurate method to identify feature gene sets and annotate cells".
 
