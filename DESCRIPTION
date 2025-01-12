@@ -2,9 +2,13 @@ Package: SiFINeT
 Type: Package
 Title: Single Cell Feature Identification with Network Topology
 Version: 1.13
-Date: 2024-12-01
-Author: Qi Gao
+Date: 2025-01-01
+Author: Qi Gao [aut, cre]
 Maintainer: Qi Gao <gqi@med.umich.edu>
+Authors@R: person(given = "Qi",
+                  family = "Gao",
+                  role = c("aut", "cre"),
+                  email = "gqi@med.umich.edu")
 Description: A cluster-independent feature gene sets detection method based on topology structure of gene coexpression network. 
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
@@ -14,7 +18,7 @@ NeedsCompilation: yes
 BuildVignettes: yes
 VignetteBuilder: knitr
 Depends:
-	R (>= 3.5.0),
+	R (>= 3.6.0),
 	methods,
 	utils,
 	stats
