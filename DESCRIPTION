@@ -10,7 +10,7 @@ Authors@R: person(given = "Qi",
                   role = c("aut", "cre"),
                   email = "gqi@med.umich.edu")
 Description: A cluster-independent feature gene sets detection method based on topology structure of gene coexpression network. 
-License: GPL-3 + file LICENSE
+License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
