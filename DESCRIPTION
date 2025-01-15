@@ -9,7 +9,7 @@ Authors@R: person(given = "Qi",
                   family = "Gao",
                   role = c("aut", "cre"),
                   email = "gqi@med.umich.edu")
-Description: A cluster-independent feature gene sets detection method based on topology structure of gene coexpression network. 
+Description: Cluster-independent method based on topology structure of gene co-expression network for identifying feature gene sets, extracting cellular subpopulations, and elucidating intrinsic relationships among these subpopulations. Without prior cell clustering, SifiNet circumvents potential inaccuracies in clustering that may influence subsequent analyses. This method is introduced in Qi Gao, Zhicheng Ji, Liuyang Wang, Kouros Owzar, Qi-Jing Li, Cliburn Chan, Jichun Xie "SifiNet: a robust and accurate method to identify feature gene sets and annotate cells" (2024) <doi:10.1093/nar/gkae307>.
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
